@@ -1,7 +1,10 @@
 buildscript {
     repositories {
+        maven{
+            url "file:///Applications/maven-repository/"
+        }
+        maven { url 'http://maven.oschina.net/content/groups/public/' }
         maven { url "https://repo.spring.io/libs-release" }
-        mavenLocal()
         mavenCentral()
     }
     dependencies {
@@ -20,7 +23,10 @@ jar {
 }
 
 repositories {
-    mavenLocal()
+        maven{
+            url "file:///Applications/maven-repository/"
+        }
+        maven { url 'http://maven.oschina.net/content/groups/public/' }
     mavenCentral()
     maven { url "https://repo.spring.io/libs-release" }
 }
@@ -28,6 +34,11 @@ repositories {
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-data-rest")
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile "org.springframework:gs-accessing-data-rest:0.1.0"
+    compile "org.slf4j:slf4j-api:1.7.7"
+    compile "ch.qos.logback:logback-classic:1.1.2"
+    compile "com.googlecode.log4jdbc:log4jdbc:1.2"
+    compile "mysql:mysql-connector-java:5.1.25"
     compile("com.h2database:h2")
 }
 
