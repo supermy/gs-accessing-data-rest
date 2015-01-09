@@ -2,6 +2,7 @@ package hello;
 
 //import org.junit.Test;
 //import org.junit.runner.RunWith;
+import hello.db.DataBaseConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
@@ -14,8 +15,6 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguratio
 //import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 //import org.springframework.test.context.transaction.TransactionConfiguration;
 //import org.springframework.test.context.web.WebAppConfiguration;
-import hello.*;
-
 
 
 //@RunWith(SpringJUnit4ClassRunner.class)

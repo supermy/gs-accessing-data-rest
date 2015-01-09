@@ -22,7 +22,8 @@
 	<!--log4jdbc -->
 	<logger name="jdbc.sqltiming" level="INFO"/>
 
-	<root level="WARN">
+    <!--WRAN-->
+	<root level="INFO">
 		<appender-ref ref="console" />
 		<appender-ref ref="rollingFile" />
 	</root>

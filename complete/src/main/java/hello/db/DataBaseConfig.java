@@ -1,4 +1,4 @@
-package hello;
+package hello.db;
 
 import org.hibernate.ejb.HibernatePersistence;
 import org.springframework.context.annotation.Bean;

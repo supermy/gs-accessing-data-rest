@@ -1,14 +1,16 @@
-package hello;
+package hello.exception;
 
 
-import hello.exception.PersonNotFoundException;
 import hello.exception.helper.ErrorFormInfo;
 import hello.exception.helper.ErrorInfo;
 import hello.exception.helper.FieldErrorDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.ClassUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -18,13 +20,73 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 @ControllerAdvice
 public class RestExceptionProcessor {
-	
+
+
+
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> getSQLError(Exception exception)
+    {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("HeaderKey","HeaderDetails");
+        return new ResponseEntity<String>("Rest Controller Advice Example",headers,HttpStatus.ACCEPTED);
+    }
+
+    //@ExceptionHandler(Exception.class)
+    public @ResponseBody
+    ErrorInfo handleEmployeeNotFoundException(HttpServletRequest request, Exception ex){
+
+        ErrorInfo response = new ErrorInfo(request.getRequestURL().toString(),ex.getMessage());
+
+        return response;
+    }
+
+
+    @ExceptionHandler(NullPointerException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public String handleIOException(NullPointerException ex) {
+        return ClassUtils.getShortName(ex.getClass()) + ex.getMessage();
+    }
+
+
+    @ExceptionHandler(RuntimeException.class)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public ErrorInfo handleUnexpectedServerError(HttpServletRequest request,RuntimeException ex) {
+
+        ErrorInfo response = new ErrorInfo(request.getRequestURL().toString(),ex.getMessage());
+
+        return response;
+    }
+
+    @ExceptionHandler(IOException.class)
+    @ResponseBody
+    public String exceptionIO(Exception e) {
+
+        //..
+        return "error";
+    }
+
+    @ExceptionHandler(SQLException.class)
+    @ResponseBody
+    public String exceptionSQL(Exception e) {
+
+        //..
+        return "error";
+    }
+
+
+    /////////////////
+
 	@Autowired
 	private MessageSource messageSource;
 	
@@ -96,5 +158,7 @@ public class RestExceptionProcessor {
 		String errorMessage = messageSource.getMessage(errorCode, null, locale);
 		return errorMessage;
 	}
+
+
 
 }
