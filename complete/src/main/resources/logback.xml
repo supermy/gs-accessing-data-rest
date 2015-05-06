@@ -20,10 +20,10 @@
 	<logger name="com.spr" level="INFO" />
 
 	<!--log4jdbc -->
-	<logger name="jdbc.sqltiming" level="INFO"/>
+	<logger name="jdbc.sqltiming" level="DEBUG"/>
 
     <!--WRAN-->
-	<root level="INFO">
+	<root level="WRAN">
 		<appender-ref ref="console" />
 		<appender-ref ref="rollingFile" />
 	</root>
