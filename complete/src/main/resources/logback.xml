@@ -12,18 +12,21 @@
 			<fileNamePattern>/tmp/logs/spr-data.%d{yyyy-MM-dd}.log</fileNamePattern>
 		</rollingPolicy>
 		<encoder>
-			<pattern>%date{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+			<!--<pattern>%date{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>-->
+			<pattern>%date{HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{36}) - %msg%n</pattern>
+			<!--<pattern>[%thread] %highlight(%-5level) %cyan(%logger{15}) - %msg %n</pattern>-->
+
 		</encoder>
 	</appender>
 
 	<!-- project default level -->
-	<logger name="com.spr" level="INFO" />
+	<logger name="com.spr" level="ERROR" />
 
 	<!--log4jdbc -->
 	<logger name="jdbc.sqltiming" level="DEBUG"/>
 
     <!--WRAN-->
-	<root level="WRAN">
+	<root level="ERROR">
 		<appender-ref ref="console" />
 		<appender-ref ref="rollingFile" />
 	</root>
