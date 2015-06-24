@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-import org.springframework.security.access.prepost.PostAuthorize;
-import org.springframework.security.access.prepost.PreAuthorize;
+//import org.springframework.security.access.prepost.PostAuthorize;
+//import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 
@@ -40,16 +40,16 @@ public interface ChannelRepository extends JpaRepository<Channel, Long> {
     @Query(value = "select * from Channel where name like %:name or code like %:code ",nativeQuery=true)
     List<Channel> findByName(@Param("name") String name1, @Param("code") String name2);
 
-    @Override
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    Page<Channel> findAll(Pageable pageable);
-
-    @Override
-    @PostAuthorize("returnObject.name == principal.username or hasRole('ROLE_ADMIN')")
-    Channel findOne(Long aLong);
-
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    List<Channel> findBynameLike(@Param("name") String name);
+//    @Override
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    Page<Channel> findAll(Pageable pageable);
+//
+//    @Override
+//    @PostAuthorize("returnObject.name == principal.username or hasRole('ROLE_ADMIN')")
+//    Channel findOne(Long aLong);
+//
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    List<Channel> findBynameLike(@Param("name") String name);
 
 //    同样支持更新类的Query语句，添加@Modifying即可，比如：
 //    @Modifying

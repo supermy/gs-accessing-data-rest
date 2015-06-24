@@ -2,7 +2,7 @@ Ext.define('AM.view.user.Edit', {
     extend: 'Ext.window.Window',
     alias: 'widget.useredit',
 
-    title: 'Edit User',
+    title: '用户编辑',
     layout: 'fit',
     autoShow: true,
 
@@ -14,12 +14,12 @@ Ext.define('AM.view.user.Edit', {
                     {
                         xtype: 'textfield',
                         name : 'name',
-                        fieldLabel: 'Name'
+                        fieldLabel: '名称'
                     },
                     {
                         xtype: 'textfield',
                         name : 'email',
-                        fieldLabel: 'Email'
+                        fieldLabel: '电邮'
                     }
                 ]
             }
@@ -27,11 +27,11 @@ Ext.define('AM.view.user.Edit', {
 
         this.buttons = [
             {
-                text: 'Save',
+                text: '保存',
                 action: 'save'
             },
             {
-                text: 'Cancel',
+                text: '取消',
                 scope: this,
                 handler: this.close
             }

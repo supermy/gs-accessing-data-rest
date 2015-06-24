@@ -1,4 +1,4 @@
-Ext.define('AM.view.channel.List' ,{
+Ext.define('AM.view.channel.List', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.channellist',
 
@@ -6,12 +6,11 @@ Ext.define('AM.view.channel.List' ,{
 
     store: 'Channels',
 
-
-initComponent: function() {
+    initComponent: function () {
 
         this.columns = [
-            {header: '主键',  dataIndex: 'pkId',  flex: 1},
-            {header: '名称',  dataIndex: 'name',  flex: 1},
+            {header: '主键', dataIndex: 'pkId', flex: 1},
+            {header: '名称', dataIndex: 'name', flex: 1},
             {header: '编码', dataIndex: 'code', flex: 1}
             //,
             //{header: '秘钥',  dataIndex: 'pwd',  flex: 1},

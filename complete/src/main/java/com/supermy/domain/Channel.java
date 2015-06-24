@@ -29,7 +29,8 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "channel_auth")
-public class Channel extends ResourceSupport {
+public class Channel {//extends ResourceSupport {
+//	public class Channel extends ResourceSupport {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

@@ -1,10 +1,13 @@
 package com.supermy.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -16,8 +19,10 @@ import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity(debug = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableWebMvcSecurity
+//@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class JdbcSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource restDataSource;
@@ -53,6 +58,7 @@ public class JdbcSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
+                //.antMatchers("people").permitAll()
                 .antMatchers("/admin**").access("hasRole('ROLE_ADMIN')")
                 .and()
                 .formLogin().loginPage("/login").failureUrl("/login?error")
@@ -62,7 +68,7 @@ public class JdbcSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling().accessDeniedPage("/403")
                 .and()
-                .csrf();
+                        .csrf().disable();
 
     }
 

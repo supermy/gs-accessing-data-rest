@@ -9,8 +9,8 @@ Ext.define('AM.view.user.List' ,{
     initComponent: function() {
 
         this.columns = [
-            {header: 'Name',  dataIndex: 'name',  flex: 1},
-            {header: 'Email', dataIndex: 'email', flex: 1}
+            {header: '名称',  dataIndex: 'name',  flex: 1},
+            {header: '电邮', dataIndex: 'email', flex: 1}
         ];
 
         this.callParent(arguments);

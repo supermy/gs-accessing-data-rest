@@ -11,7 +11,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.security.access.prepost.PostAuthorize;
-import org.springframework.security.access.prepost.PreAuthorize;
+//import org.springframework.security.access.prepost.PostAuthorize;
+//import org.springframework.security.access.prepost.PreAuthorize;
 
 /**
  * http://spring.io/understanding/HATEOAS
@@ -26,6 +27,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
  * collectionResourceRel = "people" 替代persons
  *
  */
+
 @RepositoryRestResource(collectionResourceRel = "people", path = "people")
 public interface PersonRepository extends JpaRepository<Person, Long> {
 
@@ -45,14 +47,14 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
     List<Person> findByName(@Param("name1")String name1,@Param("name2") String name2);
 
     @Override
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Page<Person> findAll(Pageable pageable);
 
     @Override
-    @PostAuthorize("returnObject.firstName == principal.username or hasRole('ROLE_ADMIN')")
+//    @PostAuthorize("returnObject.firstName == principal.username or hasRole('ROLE_ADMIN')")
     Person findOne(Long aLong);
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     List<Person> findByFirstNameLike(@Param("firstName") String firstName);
 
 //    同样支持更新类的Query语句，添加@Modifying即可，比如：
