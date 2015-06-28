@@ -1,6 +1,17 @@
 //设置插件路径
 Ext.Loader.setConfig({enabled: true});
-Ext.Loader.setPath('Ext.ux', 'ext4.2-ux');
+Ext.Loader.setPath('Ext.ux', '../ux');
+
+Ext.Loader.setPath('Ext.ux', 'ext4.2/ux');
+
+Ext.require([
+    'Ext.grid.*',
+    'Ext.data.*',
+    'Ext.ux.grid.FiltersFeature',
+    'Ext.toolbar.Paging',
+    'Ext.ux.ajax.JsonSimlet',
+    'Ext.ux.ajax.SimManager'
+]);
 
 //Ext.require([
 //    '*',
@@ -34,7 +45,7 @@ Ext.application({
 
     appFolder: 'app',
 
-    launch: function() {
+    launch: function () {
         Ext.create('Ext.container.Viewport', {
             layout: 'fit',
             items: {

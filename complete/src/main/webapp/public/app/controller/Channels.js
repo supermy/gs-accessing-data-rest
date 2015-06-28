@@ -8,7 +8,8 @@ Ext.define('AM.controller.Channels', {
 
     ],
     stores: [
-        'Channels'
+        'Channels',
+        'MyOption'
     ],
     models: [
         'Channel'
@@ -47,7 +48,10 @@ Ext.define('AM.controller.Channels', {
         var rec = Ext.create('AM.model.Channel', {
             name: '用户名',
             code: '编码',
-            pwd: '秘钥'
+            pwd: '秘钥',
+            createDate: new Date(),
+            updateDate: new Date()
+
         });
 
         console.log(rec);
@@ -65,7 +69,9 @@ Ext.define('AM.controller.Channels', {
         var r = Ext.create('AM.model.Channel', {
             name: '用户名',
             code: '编码',
-            pwd: '秘钥'
+            pwd: '秘钥',
+            createDate: new Date(),
+            updateDate: new Date()
         });
 
         this.getChannelsStore().insert(0, r);
@@ -76,7 +82,7 @@ Ext.define('AM.controller.Channels', {
         //var pagingtoolbar = btn.up('panel').down('pagingtoolbar').getStore();
 
         //store.reload();//fixme
-        console.log(store);
+        //console.log(store);
     },
 
     delChannel: function (btn) {

@@ -10,12 +10,31 @@ Ext.define('AM.store.Channels', {
     total: 1,
     autoLoad: true,
     autoSync: true,
-    remoteFilter:true,
+    remoteFilter: true,
+    remoteSort: true,
+
+    pageSize: 10,
+    currentPage: 1,
+    sorters: [{
+        property: 'name',
+        direction: 'ASC'
+    }, {
+        property: 'code',
+        direction: 'DESC'
+    }],
+
 
     model: 'AM.model.Channel',
     proxy: {
         type: 'rest',
-        url: '/channel_auth',
+        //url: '/channel_auth',
+        url: '/channel_auth/filter',
+        //api: {
+        //    create  : '/channel_auth/new',
+        //    read    : '/channel_auth/load',
+        //    update  : '/channel_auth/update',
+        //    destroy : '/channel_auth/destroy_action'
+        //}
         limitParam: 'size',
         reader: {
             type: 'json',
@@ -147,38 +166,50 @@ Ext.define('AM.store.Channels', {
             me.afterRequest(request, success);
         },
 
-        //doRequest: function (operation, callback, scope) {
-        //
-        //    var writer = this.getWriter(),
-        //        request = this.buildRequest(operation);
-        //    if (operation.allowWrite()) {
-        //        request = writer.write(request);
-        //    }
-        //
-        //    console.log("do request:......" + operation);
-        //
-        //
-        //    Ext.apply(request, {
-        //        async: this.async,
-        //        binary: this.binary,
-        //        headers: this.headers,
-        //        timeout: this.timeout,
-        //        scope: this,
-        //        callback: this.createRequestCallback(request, operation, callback, scope),
-        //        method: this.getMethod(request),
-        //        disableCaching: false
-        //    });
-        //
-        //
-        //    /*
-        //     * do anything needed with the request object
-        //     */
-        //    //console.log('request', request);
-        //    console.log('request.params', request.params);
-        //
-        //    Ext.Ajax.request(request);
-        //    return request;
-        //},
+        doRequest: function (operation, callback, scope) {
+            console.log("do request:", operation);
+
+            var writer = this.getWriter(),
+                request = this.buildRequest(operation);
+            if (operation.allowWrite()) {
+                request = writer.write(request);
+            }
+
+
+            Ext.apply(request, {
+                async: this.async,
+                binary: this.binary,
+                headers: this.headers,
+                timeout: this.timeout,
+                scope: this,
+                callback: this.createRequestCallback(request, operation, callback, scope),
+                method: this.getMethod(request),
+                disableCaching: false
+            });
+
+
+            /*
+             * do anything needed with the request object
+             */
+            //console.log('request', request);
+            console.log('request.params', request.params);
+            //对filter 参数进行加工处理  fixme 或者后台处理
+            //var filterstr = new Array();
+            //function filterArrayElements(element, index, array) {
+            //    console.log("filter element:"+element.field);
+            //    filterstr[index] = element.field + "=" + element.value;
+            //}
+            //request.params.filter.forEach(filterArrayElements);
+            //
+            //var params = {
+            //    filter: filterstr
+            //};
+            //Ext.apply(operation.getstore().proxy.extraParams, params);
+
+
+            Ext.Ajax.request(request);
+            return request;
+        },
 
         afterRequest: function (request, success) {
             //var store=Ext.getStore("channelsid");
@@ -207,7 +238,7 @@ Ext.define('AM.store.Channels', {
                     //This simulates a long-running operation like a database save or XHR call.
                     //In real code, this would be in a callback function.
                     Ext.MessageBox.hide();
-                }, 1000);
+                }, 500);
             }
 
             else if (request.action == 'create') {
@@ -225,7 +256,7 @@ Ext.define('AM.store.Channels', {
                         //This simulates a long-running operation like a database save or XHR call.
                         //In real code, this would be in a callback function.
                         Ext.MessageBox.hide();
-                    }, 1000);
+                    }, 500);
 
                     //Ext.Msg.alert('添加提示', '添加成功！');
                     //store.reload();
@@ -249,7 +280,7 @@ Ext.define('AM.store.Channels', {
                         //This simulates a long-running operation like a database save or XHR call.
                         //In real code, this would be in a callback function.
                         Ext.MessageBox.hide();
-                    }, 1000);
+                    }, 500);
                     //Ext.Msg.alert('提示', '更新成功！');
                     //store.reload();
                 }
@@ -273,7 +304,7 @@ Ext.define('AM.store.Channels', {
                         //This simulates a long-running operation like a database save or XHR call.
                         //In real code, this would be in a callback function.
                         Ext.MessageBox.hide();
-                    }, 1000);
+                    }, 500);
                     //Ext.Msg.alert('提示', '数据删除成功');
                     //store.reload();
                 }
@@ -286,46 +317,42 @@ Ext.define('AM.store.Channels', {
 
     },
 
-    pageSize: 10,
-    currentPage: 1,
+
     listeners: {
         metachange: function (store, meta) {
             console.log("Version " + meta.version + "Search query " + meta.searchQuery);
         },
-        beforeload: function (store, operation, eOpts) {
 
-            //store.proxy.jsonData = {"pagination" : {"page":operation.page,
-            //    "limit":operation.limit,
-            //    "sort":operation.sorters[0].property,
-            //    "dir":operation.sorters[0].direction
-            //},
-            //    "basicInfo" : {"ccoId":remoteUser,
-            //        "prefLang":"eng_US",
-            //        "requestStartDate":(new Date()).format("isoDateTime"),
-            //        "requesterApp":appName } };
+        beforeload: function (store, operation, eOpts) {
+            console.log(store);
+            console.log(operation);
+
+            var sortstr = new Array();
+            function sortArrayElements(element, index, array) {
+                sortstr[index] = element.property + "," + element.direction;
+            }
+            operation.sorters.forEach(sortArrayElements);
+
+
+            //将搜索条件放在store的baseParams中，每次加载都赋值
+            //var new_params = { name: Ext.getCmp('search').getValue() };
+            //Ext.apply(store.proxy.extraParams, "searchkeyword");
+
+
+            var params = {
+                sort: sortstr,
+                page: store.currentPage-1
+            };
+            Ext.apply(store.proxy.extraParams, params);
+
+            //var params = {sthecstr:conditionstr};
+            //Ext.apply(options.params, params);
+            //store.baseParams = {limit: gridPageSize, filter: $('#txtFilter').val()};
 
         }
 
     }
 
-    //
-    //listeners: {
-    //    write: function(store, operation){
-    //        var record = operation.getRecords()[0],
-    //            name = Ext.String.capitalize(operation.action),
-    //            verb;
-    //
-    //
-    //        if (name == 'Destroy') {
-    //            record = operation.records[0];
-    //            verb = 'Destroyed';
-    //        } else {
-    //            verb = name + 'd';
-    //        }
-    //        Ext.example.msg(name, Ext.String.format("{0} user: {1}", verb, record.getId()));
-    //
-    //    }
-    //}
 });
 
 

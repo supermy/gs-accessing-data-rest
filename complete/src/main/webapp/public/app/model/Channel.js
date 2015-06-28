@@ -3,7 +3,7 @@ Ext.define('AM.model.Channel', {
     fields: [
         'pkId','name', 'code', 'pwd', 'tokenExpire', 'iplist',
         'ipBindtime', 'ipTimeout', 'connectCount', 'limitBandwidth',
-        'status'],
+        'status','createDate','updateDate','createBy','updateBy'],
     idProperty:'pkId',
     clientIdProperty:'pkId'
     //,
