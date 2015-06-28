@@ -17,7 +17,7 @@ Ext.define('AM.controller.Channels', {
     ,
     init: function () {
         this.control({
-            'channelgrid>gridpanel': {
+            'channelgrid': {
                 render: this.loadChannelInfo
             },
             'channelgrid>toolbar button[action=add]': {
@@ -34,7 +34,7 @@ Ext.define('AM.controller.Channels', {
             click: this.addChannelForm
             }
             ,
-            'channelgrid>gridpanel': {
+            'channelgrid': {
                 selectionchange: this.selectionChange
             }
         });
@@ -86,8 +86,9 @@ Ext.define('AM.controller.Channels', {
     },
 
     delChannel: function (btn) {
-        var store = btn.up('panel').down('gridpanel').getStore();
-        var grid = btn.up('panel').down('gridpanel');
+        var grid = btn.up('channelgrid');
+
+        var store = grid.getStore();
         var sm = grid.getSelectionModel();
         var selectedRecord=sm.getSelection();
         console.info(selectedRecord[0]);
@@ -131,6 +132,7 @@ Ext.define('AM.controller.Channels', {
     },
     //激活删除按钮
     selectionChange: function(selModel, selections){
+        console.log("selection change......");
         var delBtn = Ext.ComponentQuery.query("channelgrid button[iconCls=del_btn]")[0];
         delBtn.setDisabled(selections.length === 0);
     }
