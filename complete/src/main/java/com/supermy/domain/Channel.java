@@ -3,6 +3,7 @@ package com.supermy.domain;
 import org.springframework.hateoas.ResourceSupport;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * 渠道
@@ -29,14 +30,10 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "channel_auth")
-public class Channel {//extends ResourceSupport {
-//	public class Channel extends ResourceSupport {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+public class Channel extends BaseObj{
 
 
+	@Column
 	private String name;
 	private String code;
 	private String pwd;
@@ -54,9 +51,7 @@ public class Channel {//extends ResourceSupport {
 	private String limitBandwidth;
 	private String status;
 
-
-	public long getPkId() {
-		return id;
+	public Channel() {
 	}
 
 	public String getName() {

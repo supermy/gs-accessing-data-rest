@@ -15,6 +15,7 @@
  */
 package org.springframework.data.domain;
 
+import com.supermy.utils.MyFilter;
 import org.springframework.data.domain.Sort.Direction;
 
 /**
@@ -29,6 +30,24 @@ public class PageRequest extends AbstractPageRequest {
 
     private final Sort sort;
 
+    private MyFilter filter;
+
+    @Override
+    public MyFilter getFilter() {
+        return filter;
+    }
+
+//
+//    public MyFilter getFilter() {
+//        return filter;
+//    }
+
+    @Override
+    public void setFilter(MyFilter filter) {
+        this.filter=filter;
+    }
+
+
     /**
      * Creates a new {@link PageRequest}. Pages are zero indexed, thus providing 0 for {@code page} will return the first
      * page.
@@ -38,11 +57,6 @@ public class PageRequest extends AbstractPageRequest {
      */
     public PageRequest(int page, int size) {
         this(page, size, null);
-    }
-
-    @Override
-    public int getPageNumber() {
-        return super.getPageNumber();
     }
 
     /**
@@ -69,6 +83,11 @@ public class PageRequest extends AbstractPageRequest {
         this.sort = sort;
     }
 
+//    public PageRequest(int page, int size, Sort sort,MyFilter filter) {
+//        super(page, size);
+//        this.sort = sort;
+//        this.filter = filter;
+//    }
     /*
      * (non-Javadoc)
      * @see org.springframework.data.domain.Pageable#getSort()
@@ -76,6 +95,8 @@ public class PageRequest extends AbstractPageRequest {
     public Sort getSort() {
         return sort;
     }
+
+
 
     /*
      * (non-Javadoc)

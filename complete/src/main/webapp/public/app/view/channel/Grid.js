@@ -106,6 +106,13 @@ Ext.define('AM.view.channel.Grid', {
             columns: [
                 {
                     xtype: 'gridcolumn',
+                    dataIndex: 'pkId',
+                    text: '序号',
+                    flex: 1,
+                    filter: {type: 'numeric'}
+                },
+                {
+                    xtype: 'gridcolumn',
                     dataIndex: 'name',
                     text: '用户名',
                     flex: 1,
@@ -131,7 +138,7 @@ Ext.define('AM.view.channel.Grid', {
                     width: 80,
                     sortable: true,
                     dataIndex: 'pwd',
-                    field: {
+                    editor: {
                         xtype: 'textfield'
                     }
                 }, {
@@ -139,7 +146,7 @@ Ext.define('AM.view.channel.Grid', {
                     flex: 1,
                     sortable: true,
                     dataIndex: 'tokenExpire',
-                    field: {
+                    editor: {
                         xtype: 'textfield'
                     }
                 }, {
@@ -148,7 +155,7 @@ Ext.define('AM.view.channel.Grid', {
                     width: 80,
                     sortable: true,
                     dataIndex: 'iplist',
-                    field: {
+                    editor: {
                         xtype: 'textfield'
                     }
                 }, {
@@ -157,7 +164,7 @@ Ext.define('AM.view.channel.Grid', {
                     width: 80,
                     sortable: true,
                     dataIndex: 'ipBindtime',
-                    field: {
+                    editor: {
                         xtype: 'textfield'
                     }
                 }, {
@@ -165,7 +172,12 @@ Ext.define('AM.view.channel.Grid', {
                     flex: 1,
                     sortable: true,
                     dataIndex: 'ipTimeout',
-                    field: {
+                    //filter: {//todo
+                    //    type: 'list',
+                    //    store: 'MyOption'
+                    //    //,phpMode: true
+                    //},
+                    editor: {
                         xtype: 'textfield'
                     }
                 }, {
@@ -174,7 +186,7 @@ Ext.define('AM.view.channel.Grid', {
                     width: 80,
                     sortable: true,
                     dataIndex: 'connectCount',
-                    field: {
+                    editor: {
                         xtype: 'textfield'
                     }
                 }, {
@@ -183,7 +195,7 @@ Ext.define('AM.view.channel.Grid', {
                     width: 80,
                     sortable: true,
                     dataIndex: 'limitBandwidth',
-                    field: {
+                    editor: {
                         xtype: 'textfield'
                     }
                 }, {
@@ -191,9 +203,37 @@ Ext.define('AM.view.channel.Grid', {
                     flex: 1,
                     sortable: true,
                     dataIndex: 'status',
-                    field: {
+                    filter: {type: 'boolean'},
+                    editor: {
                         xtype: 'textfield'
                     }
+                }, {
+                    text: '创建时间',
+                    flex: 1,
+                    sortable: true,
+                    dataIndex: 'createDate',
+                    xtype: 'datecolumn',
+                    format:'Y-m-d',
+                    filter: {type: 'date'},
+                    editor: {
+                        xtype: 'datefield',
+                        format: 'Y-m-d',
+                        //minValue: '06/01/06',
+                        disabledDays: [0, 6],
+                        disabledDaysText: 'Plants are not available on the weekends'
+                    }
+                }, {
+                    text: '更新时间',
+                    flex: 2,
+                    sortable: true,
+                    dataIndex: 'updateDate',
+                    xtype: 'datecolumn',
+                    format:'Y-m-d H:i:s',
+                    filter: {type: 'date'}
+                    //,
+                    //editor: {
+                    //
+                    //}
                 }, {
                     xtype: 'actioncolumn',
                     flex: 1,
