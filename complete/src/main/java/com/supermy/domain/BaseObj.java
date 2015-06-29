@@ -19,6 +19,7 @@ public class BaseObj implements Serializable {
 	//逻辑删除
 	private Boolean deleted=false;
 
+	@Temporal(TemporalType.DATE)//解决日期查询问题
 	private Date createDate=new Date();
 	@Column(length = 20)
 	private String createBy="system";

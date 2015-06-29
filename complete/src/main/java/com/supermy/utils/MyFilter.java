@@ -9,6 +9,7 @@ import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.*;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static com.supermy.utils.FilterMeta.Operator;
@@ -117,14 +118,24 @@ public class MyFilter<T> {
                         }
 
                         if ("boolean".equalsIgnoreCase(type)) {
-                            predicates.add(builder.equal(expression, value));
+                            if ("true".equals(value)){
+                                predicates.add(builder.isTrue(expression));
+
+                            }else{
+                                predicates.add(builder.isFalse(expression));
+
+                            }
                         }
                         //大于 小于 等于 三种情况
                         if ("date".equalsIgnoreCase(type) ) {
-                            long v=Long.parseLong(value);
-                            Date y = new Date(v);
+                            System.out.println(value);
+
+//                            long v=Long.parseLong(value);
+//                            Date y = new Date(value);
+                            Date y = new Date(value);
                             System.out.println("date:"+y);
-                            System.out.println(field);
+
+                            SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
 
 
                             // logic operator

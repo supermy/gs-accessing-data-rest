@@ -5,6 +5,11 @@ Ext.define('AM.view.channel.Grid', {
     ],
     features: [
         {
+            //id: 'filter_feature',
+            //ftype: 'filters',
+            //autoReload: false, //don't reload automatically
+            ////local: true,     //only filter locally
+            //filters: []
             ftype: 'filters',
             encode: true
         }
@@ -117,6 +122,7 @@ Ext.define('AM.view.channel.Grid', {
                     dataIndex: 'name',
                     text: '用户名',
                     flex: 2,
+                    filterable: true,
                     filter: {type: 'string'},
                     editor: {
                         xtype: 'textfield',
@@ -217,20 +223,20 @@ Ext.define('AM.view.channel.Grid', {
                         store: 'Bandwidth',
                         displayField: 'name',
                         valueField: 'code',
-                        //allowBlank: false,
-                        //editable: false,
+                        allowBlank: false,
+                        editable: false,
                         queryMode: 'local',
                         forceSelection: true,
                         triggerAction: 'all'
                     }
                     ,
                     //renderer: function(value, metaData, record, row, col, store, gridView){
-                    renderer: function(value) {//显示的时候，进行预处理
+                    renderer: function (value) {//显示的时候，进行预处理
                         //return value;
                         var store11 = Ext.getStore('Bandwidth');
-                        console.log("grid column renderer:"+store11);
+                        console.log("grid column renderer:" + store11);
                         var rec = store11.findRecord('code', value);
-                        console.log("grid column renderer:"+rec);
+                        console.log("grid column renderer:" + rec);
                         return rec !== null ? rec.get("name") : '';
                     }
                 },
@@ -253,7 +259,10 @@ Ext.define('AM.view.channel.Grid', {
                     dataIndex: 'createDate',
                     xtype: 'datecolumn',
                     format: 'Y-m-d',
-                    filter: {type: 'date'},
+                    filter: {
+                        format: 'Y-m-d',
+                        type: 'date'
+                    },
                     editor: {
                         xtype: 'datefield',
                         allowBlank: false,
@@ -308,23 +317,24 @@ Ext.define('AM.view.channel.Grid', {
                     id: 'rowEditing',
                     saveBtnText: '保存',
                     cancelBtnText: "取消",
-                    errorSummary :false,
+                    errorSummary: false,
                     autoCancel: false,
                     clicksToEdit: 2   //双击进行修改  1-单击   2-双击    0-可取消双击/单击事件
                     ,
                     listeners: {
-                        //'edit':function(editor,e){
-                        //    //新增
-                        //    if(typeof (e.record.data.Id) == 'undefined'){
-                        //        Ext.popup.msg(e.record.data.RoleName);
-                        //        Ext.popup.msg('新增成功');
-                        //    }//修改
-                        //    else{
-                        //        Ext.popup.msg(e.record.data.RoleName);
-                        //        Ext.popup.msg('修改成功');
-                        //        Ext.getCmp('pagingtoolbar').doRefresh();
-                        //    }
-                        //},
+                        'edit': function (editor, e) {
+                            console.log("edit......");
+                            ////新增
+                            //if(typeof (e.record.data.Id) == 'undefined'){
+                            //    Ext.popup.msg(e.record.data.RoleName);
+                            //    Ext.popup.msg('新增成功');
+                            //}//修改
+                            //else{
+                            //    Ext.popup.msg(e.record.data.RoleName);
+                            //    Ext.popup.msg('修改成功');
+                            //    Ext.getCmp('pagingtoolbar').doRefresh();
+                            //}
+                        },
                         //edit: 'onRowEditorEdit',
                         'canceledit': function (rowEditing, context) {
                             // Canceling editing of a locally added, unsaved record: remove it
@@ -360,7 +370,6 @@ Ext.define('AM.view.channel.Grid', {
         var view = Ext.widget('channeledit');
         view.down('form').loadRecord(rec);
     }
-
 
 
 });

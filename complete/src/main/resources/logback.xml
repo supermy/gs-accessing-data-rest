@@ -20,7 +20,7 @@
 	</appender>
 
 	<!-- project default level -->
-	<logger name="org.springframework.data.rest" level="DEBUG" />
+	<logger name="org.springframework.data.rest" level="ERROR" />
 	<logger name="org.springframework.security" level="ERROR" />
 
 

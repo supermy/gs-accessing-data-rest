@@ -1,6 +1,15 @@
 MobileApp
 =========
+2015-06-29
 
+    Extjs grid 的下拉选项与显示预处理完成
+    
+    两个老问题圆满解决。
+    extjs grid filter 条件编辑面板在chrome 浏览器下失效的问题解决；
+    行编辑器保存按钮，在数据正确之后不能自动变回的问题解决。
+    
+    修正日期 boolean 类型的过滤
+    
 2015-06-27
     完成filter 编写，完成filterController编写，完成对 findAll 过滤查询调试；
     http://127.0.0.1:8080/filter/channel/?_dc=1435308762365&sort=name%2CASC&sort=code%2CDESC&page=0&filter=%5B%7B%22type%22%3A%22numeric%22%2C%22comparison%22%3A%22lt%22%2C%22value%22%3A6%2C%22field%22%3A%22id%22%7D%2C%7B%22type%22%3A%22numeric%22%2C%22comparison%22%3A%22gt%22%2C%22value%22%3A2%2C%22field%22%3A%22id%22%7D%2C%7B%22type%22%3A%22string%22%2C%22value%22%3A%2212%22%2C%22field%22%3A%22code%22%7D%2C%7B%22type%22%3A%22boolean%22%2C%22value%22%3Atrue%2C%22field%22%3A%22status%22%7D%2C%7B%22type%22%3A%22date%22%2C%22comparison%22%3A%22lt%22%2C%22value%22%3A11122222%2C%22field%22%3A%22createDate%22%7D%5D&start=0&size=10
@@ -13,6 +22,9 @@ MobileApp
     SimpleJpaRepository 增加filter 参数处理判断；
     增加MyRepositoryEntityController，增加/{repository}/filter入口
 
+    todo:
+            lua  template 简化消费者的前端使用。
+            
 2015-06-25
     spring-data-rest 排序查询
     http://127.0.0.1:8080/channel_auth?page=1&size=10&sort=name,desc&sort=code,asc

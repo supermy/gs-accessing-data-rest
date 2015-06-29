@@ -7,7 +7,7 @@ Ext.define('AM.store.Channels', {
     remoteFilter: true,
     remoteSort: true,
 
-    pageSize: 10,
+    pageSize: 25,
     currentPage: 1,
     sorters: [{
         property: 'name',
