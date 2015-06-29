@@ -20,8 +20,10 @@ public class BaseObj implements Serializable {
 	private Boolean deleted=false;
 
 	private Date createDate=new Date();
+	@Column(length = 20)
 	private String createBy="system";
 	private Date updateDate=new Date();
+	@Column(length = 20)
 	private String updateBy="system";
 
 	public long getPkId() {

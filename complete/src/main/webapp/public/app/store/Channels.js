@@ -1,11 +1,5 @@
 Ext.define('AM.store.Channels', {
     extend: 'Ext.data.Store',
-
-    //fields: ['pkId','name', 'code'],
-    //data: [
-    //    {pkId:1,name: 'Ed',    code: 'ed@sencha.com'},
-    //    {pkId:2,name: 'Tommy', code: 'tommy@sencha.com'}
-    //],
     storeId: 'channelsid',
     total: 1,
     autoLoad: true,
@@ -29,12 +23,6 @@ Ext.define('AM.store.Channels', {
         type: 'rest',
         //url: '/channel_auth',
         url: '/channel_auth/filter',
-        //api: {
-        //    create  : '/channel_auth/new',
-        //    read    : '/channel_auth/load',
-        //    update  : '/channel_auth/update',
-        //    destroy : '/channel_auth/destroy_action'
-        //}
         limitParam: 'size',
         reader: {
             type: 'json',
@@ -48,8 +36,6 @@ Ext.define('AM.store.Channels', {
 
         processResponse: function (success, operation, request, response, callback, scope) {
             //自定义--begin
-
-
             console.log("process response:......" + response);
             console.log("process request:......" + request);
             console.log("process success:......" + success);
@@ -328,9 +314,11 @@ Ext.define('AM.store.Channels', {
             console.log(operation);
 
             var sortstr = new Array();
+
             function sortArrayElements(element, index, array) {
                 sortstr[index] = element.property + "," + element.direction;
             }
+
             operation.sorters.forEach(sortArrayElements);
 
 
@@ -341,7 +329,7 @@ Ext.define('AM.store.Channels', {
 
             var params = {
                 sort: sortstr,
-                page: store.currentPage-1
+                page: store.currentPage - 1
             };
             Ext.apply(store.proxy.extraParams, params);
 

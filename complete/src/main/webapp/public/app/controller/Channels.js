@@ -9,7 +9,8 @@ Ext.define('AM.controller.Channels', {
     ],
     stores: [
         'Channels',
-        'MyOption'
+        'MyOption',
+        'Bandwidth'
     ],
     models: [
         'Channel'
@@ -49,6 +50,13 @@ Ext.define('AM.controller.Channels', {
             name: '用户名',
             code: '编码',
             pwd: '秘钥',
+            iplist: '--.--.--.--',
+            tokenExpire: 90,
+            ipBindtime: 300,
+            ipTimeout: 60,
+            connectCount: 100,
+            limitBandwidth: 10,
+            status: false,
             createDate: new Date(),
             updateDate: new Date()
 
@@ -70,6 +78,13 @@ Ext.define('AM.controller.Channels', {
             name: '用户名',
             code: '编码',
             pwd: '秘钥',
+            iplist: '--.--.--.--',
+            tokenExpire: 90,
+            ipBindtime: 300,
+            ipTimeout: 60,
+            connectCount: 100,
+            limitBandwidth: 10,
+            status: false,
             createDate: new Date(),
             updateDate: new Date()
         });
@@ -136,6 +151,14 @@ Ext.define('AM.controller.Channels', {
         var delBtn = Ext.ComponentQuery.query("channelgrid button[iconCls=del_btn]")[0];
         delBtn.setDisabled(selections.length === 0);
     }
+    //,onRowEditorEdit: function (editor, ctx, eOpts) {
+    //    //处理下拉选项的数据
+    //    var vendorColIdx = 9;
+    //    var combo = ctx.Grid.columns[vendorColIdx].getEditor(ctx.record);
+    //    var vendorRecord = combo.findRecord('name', combo.getValue());
+    //    ctx.record.set('vendorId', vendorRecord.get('id'));
+    //    ctx.Grid.getStore().sync();  // Force a post with the updated data.
+    //}
 
     //init: function() {
     //    this.control({

@@ -33,23 +33,27 @@ import java.io.Serializable;
 public class Channel extends BaseObj{
 
 
-	@Column
+	@Column(length = 200)
 	private String name;
+	@Column(length = 20)
 	private String code;
+	@Column(length = 32)
 	private String pwd;
+	@Column(length = 32)
 	private String token;
 	@Column(name = "token_expire")
-	private String tokenExpire;
+	private Integer tokenExpire;
 	private String iplist;
 	@Column(name = "ip_bind_time")
-	private String ipBindtime;
+	private Integer ipBindtime = 300;
 	@Column(name = "ip_time_out")
-	private String ipTimeout;
+	private Integer ipTimeout = 60;
 	@Column(name = "connect_count")
-	private String connectCount;
+	private Integer connectCount = 100;
 	@Column(name = "limit_bandwidth")
-	private String limitBandwidth;
-	private String status;
+	private String limitBandwidth = "100M";
+
+	private Boolean status = false;
 
 	public Channel() {
 	}
@@ -78,11 +82,11 @@ public class Channel extends BaseObj{
 		this.pwd = pwd;
 	}
 
-	public String getTokenExpire() {
+	public Integer getTokenExpire() {
 		return tokenExpire;
 	}
 
-	public void setTokenExpire(String tokenExpire) {
+	public void setTokenExpire(Integer tokenExpire) {
 		this.tokenExpire = tokenExpire;
 	}
 
@@ -94,27 +98,27 @@ public class Channel extends BaseObj{
 		this.iplist = iplist;
 	}
 
-	public String getIpBindtime() {
+	public Integer getIpBindtime() {
 		return ipBindtime;
 	}
 
-	public void setIpBindtime(String ipBindtime) {
+	public void setIpBindtime(Integer ipBindtime) {
 		this.ipBindtime = ipBindtime;
 	}
 
-	public String getIpTimeout() {
+	public Integer getIpTimeout() {
 		return ipTimeout;
 	}
 
-	public void setIpTimeout(String ipTimeout) {
+	public void setIpTimeout(Integer ipTimeout) {
 		this.ipTimeout = ipTimeout;
 	}
 
-	public String getConnectCount() {
+	public Integer getConnectCount() {
 		return connectCount;
 	}
 
-	public void setConnectCount(String connectCount) {
+	public void setConnectCount(Integer connectCount) {
 		this.connectCount = connectCount;
 	}
 
@@ -126,11 +130,11 @@ public class Channel extends BaseObj{
 		this.limitBandwidth = limitBandwidth;
 	}
 
-	public String getStatus() {
+	public Boolean getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(Boolean status) {
 		this.status = status;
 	}
 }

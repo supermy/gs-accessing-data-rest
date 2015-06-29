@@ -1,9 +1,9 @@
 Ext.define('AM.view.channel.Grid', {
     extend: 'Ext.grid.Panel',
-    requires:[
+    requires: [
         'Ext.ux.grid.FiltersFeature'
     ],
-    features:[
+    features: [
         {
             ftype: 'filters',
             encode: true
@@ -17,7 +17,7 @@ Ext.define('AM.view.channel.Grid', {
     },
     frame: true,
     columnLines: true,
-    closable:true,
+    closable: true,
     loadMask: true,
 
     title: '渠道秘钥管理',
@@ -44,61 +44,62 @@ Ext.define('AM.view.channel.Grid', {
                 }]
             },
                 {
-                weight: 2,
-                xtype: 'toolbar',
-                dock: 'bottom',
-                items: [
-                //    {
-                    //    xtype: 'tbtext',
-                    //    text: '<b>@cfg</b>'
-                    //}, '|', {
-                    //    text: 'autoSync',
-                    //    enableToggle: true,
-                    //    pressed: true,
-                    //    tooltip: 'When enabled, Store will execute Ajax requests as soon as a Record becomes dirty.',
-                    //    scope: this,
-                    //    toggleHandler: function(btn, pressed){
-                    //        this.store.autoSync = pressed;
-                    //    }
-                    //}, {
-                    //    text: 'batch',
-                    //    enableToggle: true,
-                    //    pressed: true,
-                    //    tooltip: 'When enabled, Store will batch all records for each type of CRUD verb into a single Ajax request.',
-                    //    scope: this,
-                    //    toggleHandler: function(btn, pressed){
-                    //        this.store.getProxy().batchActions = pressed;
-                    //    }
-                    //}, {
-                    //    text: 'writeAllFields',
-                    //    enableToggle: true,
-                    //    pressed: false,
-                    //    tooltip: 'When enabled, Writer will write *all* fields to the server -- not just those that changed.',
-                    //    scope: this,
-                    //    toggleHandler: function(btn, pressed){
-                    //        this.store.getProxy().getWriter().writeAllFields = pressed;
-                    //    }
-                    //},
-                    {
-                        xtype: 'pagingtoolbar',
-                        store: 'Channels',
-                        dock: 'bottom',
-                        displayInfo: true
-                    }
-                ]
-            }
-            //    , {
-            //    weight: 1,
-            //    xtype: 'toolbar',
-            //    dock: 'bottom',
-            //    ui: 'footer',
-            //    items: ['->', {
-            //        iconCls: 'icon-save',
-            //        text: 'Sync',
-            //        scope: this,
-            //        handler: this.onSync
-            //    }]
-            //}
+                    weight: 2,
+                    xtype: 'toolbar',
+                    dock: 'bottom',
+                    items: [
+                        //    {
+                        //    xtype: 'tbtext',
+                        //    text: '<b>@cfg</b>'
+                        //}, '|', {
+                        //    text: 'autoSync',
+                        //    enableToggle: true,
+                        //    pressed: true,
+                        //    tooltip: 'When enabled, Store will execute Ajax requests as soon as a Record becomes dirty.',
+                        //    scope: this,
+                        //    toggleHandler: function(btn, pressed){
+                        //        this.store.autoSync = pressed;
+                        //    }
+                        //}, {
+                        //    text: 'batch',
+                        //    enableToggle: true,
+                        //    pressed: true,
+                        //    tooltip: 'When enabled, Store will batch all records for each type of CRUD verb into a single Ajax request.',
+                        //    scope: this,
+                        //    toggleHandler: function(btn, pressed){
+                        //        this.store.getProxy().batchActions = pressed;
+                        //    }
+                        //}, {
+                        //    text: 'writeAllFields',
+                        //    enableToggle: true,
+                        //    pressed: false,
+                        //    tooltip: 'When enabled, Writer will write *all* fields to the server -- not just those that changed.',
+                        //    scope: this,
+                        //    toggleHandler: function(btn, pressed){
+                        //        this.store.getProxy().getWriter().writeAllFields = pressed;
+                        //    }
+                        //},
+                        {
+                            xtype: 'pagingtoolbar',
+
+                            store: 'Channels',
+                            dock: 'bottom',
+                            displayInfo: true
+                        }
+                    ]
+                }
+                //    , {
+                //    weight: 1,
+                //    xtype: 'toolbar',
+                //    dock: 'bottom',
+                //    ui: 'footer',
+                //    items: ['->', {
+                //        iconCls: 'icon-save',
+                //        text: 'Sync',
+                //        scope: this,
+                //        handler: this.onSync
+                //    }]
+                //}
             ],
 
             xtype: 'gridpanel',
@@ -109,13 +110,13 @@ Ext.define('AM.view.channel.Grid', {
                     dataIndex: 'pkId',
                     text: '序号',
                     flex: 1,
-                    filter: {type: 'numeric'}
+                    sortable: false
                 },
                 {
                     xtype: 'gridcolumn',
                     dataIndex: 'name',
                     text: '用户名',
-                    flex: 1,
+                    flex: 2,
                     filter: {type: 'string'},
                     editor: {
                         xtype: 'textfield',
@@ -126,7 +127,7 @@ Ext.define('AM.view.channel.Grid', {
                     xtype: 'gridcolumn',
                     dataIndex: 'code',
                     text: '密码',
-                    flex: 1,
+                    flex: 2,
                     filter: {type: 'string'},
                     editor: {
                         xtype: 'textfield',
@@ -134,20 +135,25 @@ Ext.define('AM.view.channel.Grid', {
                     }
                 }, {
                     text: ' 秘钥',
-                    flex: 2,
+                    flex: 5,
                     width: 80,
                     sortable: true,
                     dataIndex: 'pwd',
                     editor: {
-                        xtype: 'textfield'
+                        xtype: 'textfield',
+                        allowBlank: false
+
                     }
                 }, {
-                    text: '令牌有效期',
+                    text: '令牌有<br>效期(天)',
                     flex: 1,
                     sortable: true,
                     dataIndex: 'tokenExpire',
                     editor: {
-                        xtype: 'textfield'
+                        xtype: 'numberfield',
+                        allowBlank: false,
+                        minValue: 0,
+                        maxValue: 10000
                     }
                 }, {
                     header: ' 服务器IP 地址',
@@ -157,18 +163,23 @@ Ext.define('AM.view.channel.Grid', {
                     dataIndex: 'iplist',
                     editor: {
                         xtype: 'textfield'
+                        ,
+                        allowBlank: false
                     }
                 }, {
-                    text: ' 禁止时长',
+                    text: ' 禁止时<br>长(秒)',
                     flex: 1,
                     width: 80,
                     sortable: true,
                     dataIndex: 'ipBindtime',
                     editor: {
-                        xtype: 'textfield'
+                        xtype: 'numberfield',
+                        allowBlank: false,
+                        minValue: 0,
+                        maxValue: 10000
                     }
                 }, {
-                    text: '访问间隔',
+                    text: '访问间<br>隔(秒)',
                     flex: 1,
                     sortable: true,
                     dataIndex: 'ipTimeout',
@@ -178,57 +189,88 @@ Ext.define('AM.view.channel.Grid', {
                     //    //,phpMode: true
                     //},
                     editor: {
-                        xtype: 'textfield'
+                        xtype: 'numberfield',
+                        allowBlank: false,
+                        minValue: 0,
+                        maxValue: 10000
                     }
                 }, {
-                    header: '访问次数',
+                    header: '访问<br>(次)',
                     flex: 1,
                     width: 80,
                     sortable: true,
                     dataIndex: 'connectCount',
                     editor: {
-                        xtype: 'textfield'
+                        xtype: 'numberfield',
+                        allowBlank: false,
+                        minValue: 0,
+                        maxValue: 10000
                     }
-                }, {
+                },
+                {
                     text: '带宽',
-                    flex: 1,
-                    width: 80,
                     sortable: true,
                     dataIndex: 'limitBandwidth',
-                    editor: {
-                        xtype: 'textfield'
+                    flex: 2,
+                    editor: {//下拉选框进行处理
+                        xtype: 'combobox',
+                        store: 'Bandwidth',
+                        displayField: 'name',
+                        valueField: 'code',
+                        //allowBlank: false,
+                        //editable: false,
+                        queryMode: 'local',
+                        forceSelection: true,
+                        triggerAction: 'all'
                     }
-                }, {
+                    ,
+                    //renderer: function(value, metaData, record, row, col, store, gridView){
+                    renderer: function(value) {//显示的时候，进行预处理
+                        //return value;
+                        var store11 = Ext.getStore('Bandwidth');
+                        console.log("grid column renderer:"+store11);
+                        var rec = store11.findRecord('code', value);
+                        console.log("grid column renderer:"+rec);
+                        return rec !== null ? rec.get("name") : '';
+                    }
+                },
+
+                {
                     text: '状态',
+                    xtype: 'checkcolumn',
                     flex: 1,
                     sortable: true,
                     dataIndex: 'status',
                     filter: {type: 'boolean'},
                     editor: {
-                        xtype: 'textfield'
+                        xtype: 'checkbox',
+                        cls: 'x-grid-checkheader-editor'
                     }
                 }, {
                     text: '创建时间',
-                    flex: 1,
+                    flex: 2,
                     sortable: true,
                     dataIndex: 'createDate',
                     xtype: 'datecolumn',
-                    format:'Y-m-d',
+                    format: 'Y-m-d',
                     filter: {type: 'date'},
                     editor: {
                         xtype: 'datefield',
+                        allowBlank: false,
                         format: 'Y-m-d',
-                        //minValue: '06/01/06',
+                        minValue: '2015-01-01',
+                        minText: 'Cannot have a start date before the company existed!',
+                        //maxValue: Ext.Date.format(new Date(), 'Y-m-d'),
                         disabledDays: [0, 6],
-                        disabledDaysText: 'Plants are not available on the weekends'
+                        disabledDaysText: '周末不允许安排工作计划'
                     }
                 }, {
                     text: '更新时间',
-                    flex: 2,
+                    flex: 3,
                     sortable: true,
                     dataIndex: 'updateDate',
                     xtype: 'datecolumn',
-                    format:'Y-m-d H:i:s',
+                    format: 'Y-m-d H:i:s',
                     filter: {type: 'date'}
                     //,
                     //editor: {
@@ -266,10 +308,24 @@ Ext.define('AM.view.channel.Grid', {
                     id: 'rowEditing',
                     saveBtnText: '保存',
                     cancelBtnText: "取消",
+                    errorSummary :false,
                     autoCancel: false,
                     clicksToEdit: 2   //双击进行修改  1-单击   2-双击    0-可取消双击/单击事件
                     ,
                     listeners: {
+                        //'edit':function(editor,e){
+                        //    //新增
+                        //    if(typeof (e.record.data.Id) == 'undefined'){
+                        //        Ext.popup.msg(e.record.data.RoleName);
+                        //        Ext.popup.msg('新增成功');
+                        //    }//修改
+                        //    else{
+                        //        Ext.popup.msg(e.record.data.RoleName);
+                        //        Ext.popup.msg('修改成功');
+                        //        Ext.getCmp('pagingtoolbar').doRefresh();
+                        //    }
+                        //},
+                        //edit: 'onRowEditorEdit',
                         'canceledit': function (rowEditing, context) {
                             // Canceling editing of a locally added, unsaved record: remove it
                             if (context.record.phantom) {
@@ -280,52 +336,7 @@ Ext.define('AM.view.channel.Grid', {
                 })
 
             ]
-            //
-            //columns: [{
-            //    text: 'ID',
-            //    width: 40,
-            //    sortable: true,
-            //    resizable: false,
-            //    draggable: false,
-            //    hideable: false,
-            //    menuDisabled: true,
-            //    dataIndex: 'id'
-            //}, {
-            //    header: 'Email',
-            //    flex: 1,
-            //    sortable: true,
-            //    dataIndex: 'email',
-            //    field: {
-            //        type: 'textfield'
-            //    }
-            //}, {
-            //    header: 'First',
-            //    width: 100,
-            //    sortable: true,
-            //    dataIndex: 'first',
-            //    field: {
-            //        type: 'textfield'
-            //    }
-            //}, {
-            //    header: 'Last',
-            //    width: 100,
-            //    sortable: true,
-            //    dataIndex: 'last',
-            //    field: {
-            //        type: 'textfield'
-            //    }
-            //}]
-            //,
 
-            //items: [
-            //    {
-            //        region: 'center',
-            //
-            //
-            //
-            //
-            //    }
-            //]
         });
         me.callParent(arguments);
     }
@@ -349,5 +360,7 @@ Ext.define('AM.view.channel.Grid', {
         var view = Ext.widget('channeledit');
         view.down('form').loadRecord(rec);
     }
+
+
 
 });

@@ -68,7 +68,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author Greg Turnquist
  */
 @RepositoryRestController
-class MyRepositoryEntityController extends AbstractRepositoryRestController implements ApplicationEventPublisherAware {
+class RepositoryFilterEntityController extends AbstractRepositoryRestController implements ApplicationEventPublisherAware {
 
     private static final String BASE_MAPPING = "/{repository}/filter";
     private static final List<String> ACCEPT_PATCH_HEADERS = Arrays.asList(//
@@ -83,9 +83,9 @@ class MyRepositoryEntityController extends AbstractRepositoryRestController impl
     private ApplicationEventPublisher publisher;
 
     @Autowired
-    public MyRepositoryEntityController(Repositories repositories, RepositoryRestConfiguration config,
-                                        RepositoryEntityLinks entityLinks, PagedResourcesAssembler<Object> assembler,
-                                        @Qualifier("defaultConversionService") ConversionService conversionService) {
+    public RepositoryFilterEntityController(Repositories repositories, RepositoryRestConfiguration config,
+                                            RepositoryEntityLinks entityLinks, PagedResourcesAssembler<Object> assembler,
+                                            @Qualifier("defaultConversionService") ConversionService conversionService) {
 
         super(assembler);
 
