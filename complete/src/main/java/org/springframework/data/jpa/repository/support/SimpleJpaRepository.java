@@ -577,6 +577,7 @@ public class SimpleJpaRepository<T, ID extends Serializable> implements JpaRepos
     }
 
     private TypedQuery<T> applyRepositoryMethodMetadata(TypedQuery<T> query) {
+//        getDomainClass()
 
         if (metadata == null) {
             return query;

@@ -17,6 +17,7 @@ package com.supermy.web;
 
 import com.supermy.domain.Channel;
 import com.supermy.repository.ChannelRepository;
+import com.supermy.service.ChannelService;
 import com.supermy.utils.MyFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -34,25 +35,25 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Arrays;
 
 /**
+ * 常用增删改查走Response 接口；
+ * 复杂逻辑单独定义接口；
  *
  */
 @RestController
-class FilterEntityController  {
+class ChannelEntityController {
 
     private static final String BASE_MAPPING = "/filter";
 
     @Autowired
-    private ChannelRepository channelRepository;
+    private ChannelService channelService;
 
     @ResponseBody
-    @RequestMapping(value = BASE_MAPPING+"/channel/", method = RequestMethod.GET)
+    @RequestMapping(value = BASE_MAPPING+"/channel/spec", method = RequestMethod.GET)
     public Page<Channel> getCollectionResource(Pageable pageable, Sort sort, MyFilter<Channel> filter)
             throws ResourceNotFoundException, HttpRequestMethodNotSupportedException {
-
         System.out.println("********************sort:"+sort);
         System.out.println("********************filter:"+filter);
-
-       return channelRepository.findAll(filter.getSpec(), pageable);
+        return channelService.getCollectionResource(pageable);
     }
 
 }

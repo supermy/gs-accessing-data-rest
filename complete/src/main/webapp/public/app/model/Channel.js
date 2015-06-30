@@ -1,5 +1,6 @@
 Ext.define('AM.model.Channel', {
     extend: 'Ext.data.Model',
+    total:1,
     fields: [
         'pkId', 'name', 'code', 'pwd', 'tokenExpire', 'iplist',
         'ipBindtime', 'ipTimeout', 'connectCount',
