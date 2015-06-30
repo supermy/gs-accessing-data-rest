@@ -65,6 +65,10 @@ Ext.define('AM.controller.Channels', {
 
         this.getChannelsStore().insert(0, r);
 
+        console.log("add channel",Ext.getCmp('id-pagingtoobar'));
+
+        Ext.getCmp('id-pagingtoobar').doRefresh();
+
         var rowEditing = btn.up('gridpanel').editingPlugin;
         rowEditing.startEdit(0, 0);
 
@@ -72,6 +76,8 @@ Ext.define('AM.controller.Channels', {
 
         //store.reload();//fixme
         //console.log(store);
+
+
     },
 
 
@@ -92,9 +98,16 @@ Ext.define('AM.controller.Channels', {
 
         });
 
+        //rec.save();
+
+        Ext.getCmp('id-pagingtoobar').doRefresh();
+
         console.log(rec);
+
         var view = Ext.widget('channeledit');
         view.down('form').loadRecord(rec);
+
+
     },
 
 
@@ -113,6 +126,9 @@ Ext.define('AM.controller.Channels', {
             if (id == 'yes') {
 
                 store.remove(selectedRecord);
+
+                Ext.getCmp('id-pagingtoobar').doRefresh();
+
                 if (store.getCount() > 0) {
                     sm.select(0);
                 }
@@ -120,20 +136,19 @@ Ext.define('AM.controller.Channels', {
             }
         }
 
+
     },
 
     updateChannelForm: function (btn) {
-        //var store = btn.up('panel').down('gridpanel').getStore();
-        //store.sync({
-        //    callback: function (store) {
-        //        Ext.Msg.alert('提示', store.proxy.reader.jsonData.msg);
-        //    }
-        //});
-
         var win = btn.up('window'),
             form = win.down('form'),
             record = form.getRecord(),
             values = form.getValues();
+
+        if(!form.isValid()){
+            Ext.Msg.alert('提示', '数据校验未通过');
+            return ;
+        }
 
         record.set(values);
         win.close();

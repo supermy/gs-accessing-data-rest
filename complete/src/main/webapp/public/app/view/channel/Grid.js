@@ -86,7 +86,7 @@ Ext.define('AM.view.channel.Grid', {
                         //},
                         {
                             xtype: 'pagingtoolbar',
-
+                            id: 'id-pagingtoobar',
                             store: 'Channels',
                             dock: 'bottom',
                             displayInfo: true
