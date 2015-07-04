@@ -14,8 +14,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+//, catalog = "hibnatedb"
 @Entity
-@Table(name = "user_roles", catalog = "hibnatedb",
+@Table(name = "user_roles",
         uniqueConstraints = @UniqueConstraint(
                 columnNames = { "role", "username" }))
 public class UserRole{

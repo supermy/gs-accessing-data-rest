@@ -13,8 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+//, catalog = "hibnatedb"
 @Entity
-@Table(name = "users", catalog = "hibnatedb")
+@Table(name = "users")
 public class User {
 
     private String username;

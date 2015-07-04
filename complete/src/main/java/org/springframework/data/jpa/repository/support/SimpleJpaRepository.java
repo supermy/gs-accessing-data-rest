@@ -344,7 +344,11 @@ public class SimpleJpaRepository<T, ID extends Serializable> implements JpaRepos
 
         if (filter != null) {
             Specification spec = filter.getSpec();
-            return findAll(spec, pageable);
+            if (spec != null )
+                return findAll(spec, pageable);
+            else
+                return findAll(null, pageable);
+
 
         }else {
             return findAll(null, pageable);

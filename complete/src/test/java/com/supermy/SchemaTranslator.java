@@ -76,7 +76,7 @@ public class SchemaTranslator {
 		
 		translator.setDialect("org.hibernate.dialect.HSQLDialect")
 			.addAnnotatedClasses(entityClasses)
-			.translate(new FileOutputStream(new File("db-schema.sql")));
+			.translate(new FileOutputStream(new File("db-schema1.sql")));
 
 	}
 

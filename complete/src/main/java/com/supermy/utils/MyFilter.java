@@ -31,7 +31,9 @@ public class MyFilter<T> {
     public void setFilter(String filter) {
         System.out.println("==========" + filter);
         this.filter = filter;
-        parseJson(filter);//关键点
+        if (!filter.isEmpty()  && filter !=""){
+            parseJson(filter);//关键点
+        }
     }
 
 

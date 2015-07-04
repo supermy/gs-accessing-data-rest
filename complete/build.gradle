@@ -10,6 +10,12 @@ buildscript {
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.1.10.RELEASE")
     }
+
+    libraryDependencies ++= Seq(
+            javaJdbc,
+            javaJpa.exclude("org.hibernate.javax.persistence", "hibernate-jpa-2.0-api"),
+            "org.hibernate" % "hibernate-entitymanager" % "4.3.0.Final"
+    )
 }
 
 apply plugin: 'java'
@@ -32,12 +38,15 @@ repositories {
 }
 
 dependencies {
+    compile "net.kaczmarzyk:specification-arg-resolver:0.6.0"
+
     compile 'org.webjars:extjs:4.2.1.883-1'
     compile 'org.webjars:bootstrap:3.3.5'
     compile 'org.webjars:jquery:2.1.4'
 
     compile("org.springframework.boot:spring-boot-starter-data-rest")
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
+
     compile "org.springframework:gs-accessing-data-rest:0.1.0"
     compile "org.slf4j:slf4j-api:1.7.7"
     compile "ch.qos.logback:logback-classic:1.1.2"

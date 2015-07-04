@@ -1,5 +1,39 @@
 MobileApp
 =========
+2015-07-04
+    docker 封装 spring-boot
+    
+    mvn package spring-boot:repackage
+    生成的war 不能正常加载到 tomcat
+  
+cd /Users/moyong/project/env-myopensource/1-spring/12-spring/spring-mysql-data-rest/complete/target/gs-accessing-data-rest-0.1.0/WEB-INF/lib
+
+zip -d spring-data-commons-1.9.2.RELEASE.jar  org/springframework/data/domain/Pageable.class
+zip -d spring-data-commons-1.9.2.RELEASE.jar  org/springframework/data/domain/PageRequest.class
+zip -d spring-data-jpa-1.7.2.RELEASE.jar  org/springframework/data/jpa/repository/support/SimpleJpaRepository.class
+zip -d spring-data-rest-webmvc-2.2.2.RELEASE.jar  org/springframework/data/rest/webmvc/AbstractRepositoryRestController.class
+
+    
+    http://www.thetekblog.com/2014/03/upgrading-to-hibernate-4-3-4-final-nosuchmethod/
+    http://docs.spring.io/spring-boot/docs/current/reference/html/build-tool-plugins-maven-plugin.html
+    http://docs.spring.io/spring-boot/docs/current/reference/html/howto-database-initialization.html
+    
+    spring-boot 按class生成时间进行加载没有解决
+    
+  归纳来讲:是基于JVM sandbox(沙盒)安装模型上提供应用层的可定制的安全机制. Java虚拟机(JVM)寻找Class的顺序：
+  1. Bootstrap classes 属于Java 平台核心的class,比如java.lang.String等.及rt.jar等重要的核心级别的class.这是由JVM Bootstrap class loader来载入的.一般是放置在{java_home}\jre\lib目录下；
+  2. Extension classes 基于Java扩展机制,用来扩展Java核心功能模块.比如Java串口通讯模块comm.jar.一般放置在{Java_home}\jre\lib \ext目录下；
+  3. User classes 开发人员或其他第三方开发的Java程序包.通过命令行的-classpath或-cp,或者通过设置CLASSPATH环境变量来引用.JVM通过放置 在{java_home}\lib\tools.jar来寻找和调用用户级的class.常用的javac也是通过调用tools.jar来寻找用户指定 的路径来编译Java源程序.这样就引出了User class路径搜索的顺序或优先级别的问题.
+  3.1 缺省值:调用Java或javawa的当前路径(.),是开发的class所存在的当前目录
+  3.2 CLASSPATH环境变量设置的路径.如果设置了CLASSPATH,则CLASSPATH的值会覆盖缺省值
+  3.3 执行Java的命令行-classpath或-cp的值,如果制定了这两个命令行参数之一,它的值会覆盖环境变量CLASSPATH的值
+  3.4 -jar 选项:如果通过java -jar 来运行一个可执行的jar包,这当前jar包会覆盖上面所有的值.换句话说,-jar 后面所跟的jar包的优先级别最高,如果指定了-jar选项,所有环境变量和命令行制定的搜索路径都将被忽略.JVM APPClassloader将只会以jar包为搜索范围. 有关可执行jar有许多相关的安全方面的描述,可以参考http://java.sun.com/docs/books/tutorial/jar/ 来全面了解. 这也是为什么应用程序打包成可执行的jar包后,不管你怎么设置classpath都不能引用到第三方jar包的东西了.
+  
+    
+2015-06-30
+     common 中抽取的方案完成解耦；
+    
+
 2015-06-29
 
     Extjs grid 的下拉选项与显示预处理完成
